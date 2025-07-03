@@ -5,77 +5,48 @@ Welcome to **QA_SYSTEM**, an **AI-powered Retrieval-Augmented Generation (RAG)**
 This project demonstrates a **production-ready architecture** using **Google Gemini**, vector search (FAISS, easily swappable for Pinecone or Chroma), and Streamlit for an interactive UI.
 
 ---
-\n Link: https://implementqnda.streamlit.app/ (should be optimised, works better on local system)
+Link: https://implementqnda.streamlit.app/ (The cloud version may be slow due to limited free resources. Local runs are faster and recommended for testing. Must be optimised)
 ## Features
 
- **Multi-format Document Ingestion**  
-- Supports **PDF**, **DOCX**, **TXT**, **HTML**, and **Markdown** files  
-- Semantic chunking with overlapping windows for context preservation
+### Multi-format Document Ingestion
+- Supports PDF, DOCX, TXT, HTML, and Markdown files  
+- Extracts text and splits content into overlapping chunks to preserve context
 
-**Embedding & Vector Store**  
-- Uses **Google Gemini Embeddings** (`text-embedding-004`)  
-- Hierarchical chunk-level embeddings with metadata: source, timestamp  
-- Stored in a local **FAISS index** (can migrate to ChromaDB, Pinecone, or Weaviate)
+### Embeddings and Vector Storage
+- Uses Google Gemini Text Embedding (`text-embedding-004`)  
+- Stores vector embeddings in a local FAISS index with metadata (source, timestamp)
 
-**Retrieval-Augmented Generation (RAG)**  
-- Hybrid search: semantic + keyword matching  
-- Context-aware query expansion with conversation history  
-- Multi-turn conversational support with dynamic context window
+### Retrieval-Augmented Generation (RAG)
+- Performs semantic similarity search to retrieve relevant chunks  
+- Supports context-aware multi-turn Q&A with recent conversation memory  
+- Uses Google Gemini Pro (`gemini-2.5-pro`) for answer generation
 
-**Memory & Learning**  
-- **Short-term memory**: last 20 turns in session  
-- **Long-term memory**: feedback, corrections, episodic logs  
-- **User feedback system**: thumbs up/down, corrections, ratings  
-- Answer quality auto-evaluation using **precision, recall, F1**
-
-**Admin Dashboard & Visualization**  
-- View performance metrics, logs, and user feedback  
-- Visualize memory growth and learning impact over time
-
-**Demo-Ready**  
-- Easily processes **10+ diverse documents**  
-- Runs **SQuAD 2.0 samples** for benchmark testing  
-- Can be extended to COQA & Natural Questions datasets
+### User Feedback and Evaluation
+- Collects explicit feedback: thumbs up/down, corrections, and ratings  
+- Stores feedback in `feedback.json` for later analysis  
+- Includes basic precision, recall, and F1 evaluation using a SQuAD sample
 
 ---
 
-## Deliverables
-
-### **Working System Components**
-- 📂 **Document Upload & Processing** — Upload any supported file and generate embeddings automatically
-- 💬 **Q&A Chat Interface** — Interactive question answering with conversation history
-- 📊 **Admin Dashboard** — Displays feedback, logs, and learning metrics
-- 🧠 **Memory Visualization** — Shows how system knowledge grows over time
-
----
-
-### **Demonstration Requirements**
-- Process 10+ different files
-- Support multi-turn queries in a single session
-- Accept and learn from explicit corrections
-- Show measurable answer improvements (tracked with F1, P, R scores)
+## Deliverables Implemented
+- Document upload and processing for multiple formats  
+- Vector store setup using FAISS with Google Gemini embeddings  
+- Conversational Q&A with session-based memory  
+- Feedback logging with corrections and answer ratings  
+- Benchmark testing using SQuAD data for quality checks
 
 ---
 
-### **Technical Documentation**
--  **System Architecture Diagram** — (add your `architecture.png` here)
--  **API Endpoints** —  
-  - `/upload`: Upload and process files  
-  - `/ask`: Query the system with context  
-  - `/feedback`: Submit feedback/corrections  
--  **Memory Schema** — Documents, session chat logs, Q&A pairs, feedback
--  **Performance Benchmarks** — Aims for <2s response time, F1 > 0.7, handles 100+ docs
+## Tech Stack
 
----
-
-## ⚙Tech Stack
-
-- **LLM:** Google Gemini Pro (`gemini-2.5-pro`)
-- **Embeddings:** Google Gemini Text Embedding (`text-embedding-004`)
-- **Vector Store:** FAISS (swap to Pinecone/Chroma for production)
-- **Backend:** Python, LangChain
-- **Frontend:** Streamlit
-- **Deployment:** Streamlit Cloud
+| Component       | Technology                             |
+|-----------------|-----------------------------------------|
+| LLM             | Google Gemini Pro (`gemini-2.5-pro`)    |
+| Embeddings      | Google Gemini Text Embedding (`text-embedding-004`) |
+| Vector Store    | FAISS                                   |
+| Backend         | Python, LangChain                       |
+| Frontend        | Streamlit                               |
+| Deployment      | Streamlit Cloud                         |
 
 ---
 
@@ -90,3 +61,12 @@ echo "GOOGLE_API_KEY=YOUR_API_KEY" > .env
 
 # Start Streamlit
 streamlit run app.py
+```
+## Notes
+- FAISS is used for local vector storage; it can be swapped with Pinecone or ChromaDB for production use
+
+- Feedback is saved locally in feedback.json
+
+- Logs and performance data can be expanded into an admin dashboard
+
+- This project demonstrates the core RAG pipeline and is ready for further development
