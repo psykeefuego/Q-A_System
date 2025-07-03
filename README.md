@@ -3,9 +3,9 @@
 Welcome to **QA_SYSTEM**, an **AI-powered Retrieval-Augmented Generation (RAG)** system built for **intelligent document question answering** with **long-term memory** and **learning from user feedback**.
 
 This project demonstrates a **production-ready architecture** using **Google Gemini**, vector search (FAISS, easily swappable for Pinecone or Chroma), and Streamlit for an interactive UI.
-link: https://implementqnda.streamlit.app/ (should be optimised, works better on local system)
----
 
+---
+\n Link: https://implementqnda.streamlit.app/ (should be optimised, works better on local system)
 ## 🚀 Features
 
 ✅ **Multi-format Document Ingestion**  
